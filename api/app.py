@@ -22,7 +22,7 @@ def predict_gold():
         {
             "given_date": request.form.get("date"),
             "next_date": model.get_next_date(),
-            "price": list(pred["trend"]),
+            "price": list(pred["yhat"]),
         },
     )
 
