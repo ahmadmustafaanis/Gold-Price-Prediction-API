@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+
+<body>
+
+    <h2>
+        Available Models
+    </h2>
+
+
+
+    <form action="{{ url_for('predict_gold') }}" method="post">
+        {% for model in models %}
+        <label for="model_val">Choose a model</label>
+        <select id="model_val" name="model_name">
+            <option value="{{model}}">{{model}}</option>
+        </select>
+        {% endfor %}
+
+        <input type="text" name="date" , placeholder="DATE:YYYY-MM-DD">
+        <input type="submit" value="Submit">
+    </form>
+
+
+</body>
+
+</html>
