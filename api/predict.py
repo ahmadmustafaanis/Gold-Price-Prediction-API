@@ -8,10 +8,7 @@ class Predictions:
         """
         model name to be loaded for prediction
         """
-        with open(
-            rf"C:\Users\hp\Desktop\RedBuffer\Gold_Prices_task_1\models\{model_name}.pckl",
-            "rb",
-        ) as fin:
+        with open(f"models/{model_name}.pckl", "rb",) as fin:
             try:
                 self.model = pickle.load(fin)
             except OSError:
@@ -48,6 +45,7 @@ class Predictions:
 
 # testing
 if __name__ == "__main__":
-    pr = Predictions("fb_p")
-    pred = pr.predict("2022-12-31")
-    print(pred)
+    # pr = Predictions("fb_p")
+    # pred = pr.predict("2022-12-31")
+    # print(pred)
+    pass
