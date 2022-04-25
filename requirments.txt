@@ -1,0 +1,10 @@
+flask
+prophet
+sklearn
+openpyxl
+pandas
+numpy
+pmdarima
+statsmodel
+seaborn
+matplotlib
