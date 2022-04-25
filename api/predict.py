@@ -14,6 +14,27 @@ class Predictions:
             except OSError:
                 print("wrong path/ model not available")
                 exit(-1)
+        self.model_name = model_name
+
+    def auto_arima_pred(self, prev_date):
+        """
+        Takes previous date as input and predict gold price for next date
+        """
+        return self.model.forecast(prev_date)[-1]  # return last sample of prediction
+
+    def fbprophet_pred(self, prev_date):
+        """
+        Takes previous date as input and predict gold price for next date
+        """
+
+        # preprocess date
+
+        next_date_series = pd.DataFrame(
+            {"ds": pd.date_range(start=self.next_date, end=self.next_date)}
+        )
+
+        pred = self.model.predict(next_date_series)
+        return list(pred["yhat"])
 
     def predict(self, prev_date: str):
         """
@@ -26,15 +47,12 @@ class Predictions:
             days=1
         )  # next date
 
-        # preprocess date
+        if self.model_name == "auto_arima":
+            results = self.auto_arima_pred(prev_date)
+        elif self.model_name == "fbprophet":
+            results = self.fbprophet_pred(prev_date)
 
-        next_date_series = pd.DataFrame(
-            {"ds": pd.date_range(start=self.next_date, end=self.next_date)}
-        )
-
-        pred = self.model.predict(next_date_series)
-
-        return pred
+        return results
 
     def get_next_date(self):
         return self.next_date.strftime("%y-%m-%d")
