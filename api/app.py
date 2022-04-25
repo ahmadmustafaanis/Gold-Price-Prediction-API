@@ -16,6 +16,9 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict_gold():
+    """
+    Given the date, predict the gold price for next date
+    """
     model = Predictions(request.form.get("model_name"))
     pred = model.predict(request.form.get("date"))
     return jsonify(
