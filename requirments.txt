@@ -1,10 +1,13 @@
+numpy
 flask
-prophet
-sklearn
+wheel
+pystan==2.19.1.1
+fbprophet
+scikit-learn
 openpyxl
 pandas
-numpy
 pmdarima
-statsmodel
+statsmodels
 seaborn
 matplotlib
+gunicorn
