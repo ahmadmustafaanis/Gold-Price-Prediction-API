@@ -19,13 +19,14 @@ def predict_gold():
     """
     Given the date, predict the gold price for next date
     """
+    print(request.form.get)
     model = Predictions(request.form.get("model_name"))
     pred = model.predict(request.form.get("date"))
     return jsonify(
         {
             "given_date": request.form.get("date"),
             "next_date": model.get_next_date(),
-            "price": list(pred["yhat"]),
+            "price": pred,
         },
     )
 
