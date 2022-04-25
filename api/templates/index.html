@@ -17,12 +17,15 @@
 
 
     <form action="{{ url_for('predict_gold') }}" method="post">
-        {% for model in models %}
         <label for="model_val">Choose a model</label>
         <select id="model_val" name="model_name">
+            {% for model in models %}
+
+
             <option value="{{model}}">{{model}}</option>
+            {% endfor %}
         </select>
-        {% endfor %}
+
 
         <input type="text" name="date" , placeholder="DATE:YYYY-MM-DD">
         <input type="submit" value="Submit">
