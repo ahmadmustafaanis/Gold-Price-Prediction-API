@@ -19,9 +19,18 @@ def predict_gold():
     """
     Given the date, predict the gold price for next date
     """
-    print(request.form.get)
-    model = Predictions(request.form.get("model_name"))
-    pred = model.predict(request.form.get("date"))
+    # print(request.form.get)
+    try:
+        model = Predictions(request.form.get("model_name"))
+        pred = model.predict(request.form.get("date"))
+    except FileNotFoundError:  # get value from curl header
+        try:
+            model = Predictions(request.headers.get("model_name"))
+            pred = model.predict(request.headers.get("date"))
+        except FileNotFoundError:
+            print("Wrong path")
+            exit(-1)
+
     return jsonify(
         {
             "given_date": request.form.get("date"),
