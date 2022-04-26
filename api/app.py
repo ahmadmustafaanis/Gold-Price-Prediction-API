@@ -3,7 +3,7 @@ from cfg import models as model_list
 from flask import jsonify, render_template, request
 from predict import Predictions
 
-models = model_list.models
+models = model_list.models  # list of all models from which to select
 
 app = flask.Flask(__name__)
 app.config["debug"] = True
