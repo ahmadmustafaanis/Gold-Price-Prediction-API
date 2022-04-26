@@ -19,3 +19,13 @@ $ cd ForecastingAPI
 $ sudo docker build -f Dockerfile -t gold_price_api:api .
 $ sudo docker run -p 5000:5000 -d gold_price_api:api
 ```
+
+## Testing
+### Testing via CURL
+```bash
+$ curl -XPOST -H 'model_name: yourmodelname' -H 'date: yourdate' 'http://localhost:5000/predict'
+```
+### Testing via UI
+- Go to http://localhost:5000
+- Select the Model and choose the date
+- Check the results
