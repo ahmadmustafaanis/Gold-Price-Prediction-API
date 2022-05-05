@@ -1,7 +1,6 @@
 import flask
 from cfg import models as model_list
 from flask import jsonify, render_template, request
-from utils import Predictions
 
 models = model_list.models  # list of all models from which to select
 
@@ -11,7 +10,7 @@ app.config["debug"] = True
 
 @app.route("/")
 def home():
-    return render_template("index.html", models=models)
+    return render_template("index.html", models=list(models.keys()))
 
 
 @app.route("/predict", methods=["POST"])
@@ -21,20 +20,24 @@ def predict_gold():
     """
     # print(request.form.get)
     try:
-        model = Predictions(request.form.get("model_name"))
-        pred = model.predict(request.form.get("date"))
-    except FileNotFoundError:  # get value from curl header
+        model_name = request.form.get("model_name")
+        date_given = request.form.get("date")
+        model = models[model_name]()
+        pred = model.predict(date_given)
+    except KeyError:  # get value from curl header
         try:
-            model = Predictions(request.headers.get("model_name"))
-            pred = model.predict(request.headers.get("date"))
+            model_name = request.headers.get("model_name")
+            date_given = request.headers.get("date")
+            model = models[model_name]()
+            pred = model.predict(date_given)
         except FileNotFoundError:
             print("Wrong path")
             exit(-1)
 
     return jsonify(
         {
-            "given_date": request.form.get("date"),
-            "next_date": model.get_next_date(),
+            "given_date": date_given,
+            "next_date": model.get_next_date(date_given),
             "price": pred,
         },
     )
